@@ -17,8 +17,8 @@
 
 - (void)dealloc {
     
-    //Stop observing notifications to prevent firing an exception
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    //Stop observing keyboard notifications
+    [self removeObserverForKeyboardNotifications];
 }
 
 #pragma mark - Initialization Methods
@@ -48,6 +48,12 @@
     self.hidden = YES;
     self.userInteractionEnabled = NO;
     self.backgroundColor = [UIColor clearColor];
+}
+
+#pragma mark - Getters
+
++ (BOOL)requiresConstraintBasedLayout {
+    return YES;
 }
 
 #pragma mark - Instance Methods
@@ -95,6 +101,16 @@
     return YES;
 }
 
+- (void)removeFromSuperview {
+    [super removeFromSuperview];
+    
+    //Stop observing keyboard notifications
+    [self removeObserverForKeyboardNotifications];
+    
+    //Remove reference to height constraint
+    self.heightConstraint = nil;
+}
+
 #pragma mark - Private Methods
 
 - (void)addObserverForKeyboardNotifications {
@@ -134,6 +150,10 @@
     [UIView setAnimationDuration:[(NSNumber *)notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]];
     [self.superview layoutIfNeeded];
     [UIView commitAnimations];
+}
+
+- (void)removeObserverForKeyboardNotifications {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
 }
 
 @end
