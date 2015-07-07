@@ -75,13 +75,10 @@
                                                                                   views:@{@"view": self}]];
     
     //Constrain the view to the bottom edge of the controllers view
-    [viewController.view addConstraint:[NSLayoutConstraint constraintWithItem:self
-                                                                    attribute:NSLayoutAttributeBottom
-                                                                    relatedBy:NSLayoutRelationEqual
-                                                                       toItem:viewController.view
-                                                                    attribute:NSLayoutAttributeBottom
-                                                                   multiplier:1.0
-                                                                     constant:0.0]];
+    [viewController.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[view]|"
+                                                                                options:0
+                                                                                metrics:nil
+                                                                                  views:@{@"view": self}]];
     
     //Constrain the views height with an initial value of zero
     self.heightConstraint = [NSLayoutConstraint constraintWithItem:self
@@ -92,7 +89,7 @@
                                                         multiplier:1.0
                                                           constant:0.0];
     
-    //Add height contraint to itself
+    //Add height contraint to self
     [self addConstraint:self.heightConstraint];
     
     //Start observing keyboard notifications
