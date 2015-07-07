@@ -122,9 +122,23 @@
 
 - (void)handleKeyboardNotification:(NSNotification *)notification {
     
-    //Set visible keyboard height to the views height constraint
+    //Determine the keyboards visible height
     CGRect keyboardFrame = [(NSValue *)notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    self.heightConstraint.constant = MAX(0.0, CGRectGetHeight(self.superview.bounds) - CGRectGetMinY(keyboardFrame));
+    CGFloat keyboardHeight = MAX(0.0, CGRectGetHeight(self.superview.bounds) - CGRectGetMinY(keyboardFrame));
+    
+    //Inform delegate of the views change in visibility
+    if (!self.heightConstraint.constant && keyboardHeight) {
+        if ([self.delegate respondsToSelector:@selector(keyboardLayoutViewWillShow:)]) {
+            [self.delegate keyboardLayoutViewWillShow:self];
+        }
+    } else if (self.heightConstraint.constant && !keyboardHeight) {
+        if ([self.delegate respondsToSelector:@selector(keyboardLayoutViewWillHide:)]) {
+            [self.delegate keyboardLayoutViewWillHide:self];
+        }
+    }
+    
+    //Set keyboard height to the views height constraint
+    self.heightConstraint.constant = keyboardHeight;
     
     //Animate the views height in relation to the keyboards frame change animation
     [UIView beginAnimations:nil context:nil];
