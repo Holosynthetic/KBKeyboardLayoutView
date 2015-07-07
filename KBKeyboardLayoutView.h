@@ -1,6 +1,5 @@
 //
 //  KBKeyboardLayoutView.h
-//  ALPlayground
 //
 //  Created by John Parron on 7/7/15.
 //  Copyright (c) 2015 John Parron. All rights reserved.
