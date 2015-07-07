@@ -62,23 +62,11 @@
     //Add the view as a subview to the view controller
     [viewController.view addSubview:self];
     
-    //Constrain the view to the left/leading edge of the controllers view
-    [viewController.view addConstraint:[NSLayoutConstraint constraintWithItem:self
-                                                                    attribute:NSLayoutAttributeLeading
-                                                                    relatedBy:NSLayoutRelationEqual
-                                                                       toItem:viewController.view
-                                                                    attribute:NSLayoutAttributeLeading
-                                                                   multiplier:1.0
-                                                                     constant:0.0]];
-    
-    //Constrain the view to the right/trailing edge of the controllers view
-    [viewController.view addConstraint:[NSLayoutConstraint constraintWithItem:self
-                                                                    attribute:NSLayoutAttributeTrailing
-                                                                    relatedBy:NSLayoutRelationEqual
-                                                                       toItem:viewController.view
-                                                                    attribute:NSLayoutAttributeTrailing
-                                                                   multiplier:1.0
-                                                                     constant:0.0]];
+    //Constrain the view to the leading and trailing edges of the controllers view
+    [viewController.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|"
+                                                                                options:0
+                                                                                metrics:nil
+                                                                                  views:@{@"view": self}]];
     
     //Constrain the view to the bottom edge of the controllers view
     [viewController.view addConstraint:[NSLayoutConstraint constraintWithItem:self
