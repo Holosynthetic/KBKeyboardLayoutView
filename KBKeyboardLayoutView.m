@@ -69,16 +69,16 @@
     [viewController.view addSubview:self];
     
     //Constrain the view to the leading and trailing edges of the controllers view
-    [viewController.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|"
-                                                                                options:0
-                                                                                metrics:nil
-                                                                                  views:@{@"view": self}]];
+    [self.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|"
+                                                                           options:0
+                                                                           metrics:nil
+                                                                             views:@{@"view": self}]];
     
     //Constrain the view to the bottom edge of the controllers view
-    [viewController.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[view]|"
-                                                                                options:0
-                                                                                metrics:nil
-                                                                                  views:@{@"view": self}]];
+    [self.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[view]|"
+                                                                           options:0
+                                                                           metrics:nil
+                                                                             views:@{@"view": self}]];
     
     //Constrain the views height with an initial value of zero
     self.heightConstraint = [NSLayoutConstraint constraintWithItem:self
